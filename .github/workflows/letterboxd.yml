@@ -1,0 +1,32 @@
+name: Letterboxd README
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update README
+        uses: onemid/letterboxd-readme@latest
+        with:
+          username: ashish_a15
+          template: "- 🎬 **$title** $rating\n  > $review"
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          git add README.md
+          git commit -m "Update Letterboxd section" || exit 0
+          git push
