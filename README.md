@@ -20,10 +20,7 @@ Documenting my DSA journey with daily practice, optimized approaches, and proble
 
 [![Ashish's Letterboxd](https://letterboxd-badge.vercel.app/ashish_a15?theme=colorMatch)](https://letterboxd.com/ashish_a15/) -->
 
-## 🎬 Latest Watch & Review
 
-<!-- LETTERBOXD:START -->
-<!-- LETTERBOXD:END -->
 
 ## 🌐 Connect with Me
 
