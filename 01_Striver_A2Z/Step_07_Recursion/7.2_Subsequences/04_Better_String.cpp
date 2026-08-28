@@ -4,44 +4,42 @@ using namespace std;
 class Solution
 {
 private:
-    long long countDistinctSubsequences(string s)
+    void generateSubsequences(int i, string s, string current, unordered_set<string> &unique_subs)
     {
-        int n = s.length();
-        vector<long long> dp(n + 1, 0);
-
-        dp[0] = 1;
-
-        vector<int> last_occurrence(256, -1);
-
-        for (int i = 1; i <= n; i++)
+        // Base Case: Reached the end of the string
+        if (i == s.length())
         {
-
-            dp[i] = 2 * dp[i - 1];
-
-            char currentChar = s[i - 1];
-            if (last_occurrence[currentChar] != -1)
-            {
-                dp[i] = dp[i] - dp[last_occurrence[currentChar] - 1];
-            }
-
-            last_occurrence[currentChar] = i;
+            unique_subs.insert(current);
+            return;
         }
 
-        return dp[n];
+        // Choice 1: Pick the current character
+        generateSubsequences(i + 1, s, current + s[i], unique_subs);
+
+        // Choice 2: Don't pick the current character
+        generateSubsequences(i + 1, s, current, unique_subs);
     }
 
 public:
-    string betterString(string str1, string str2)
+    //  TLE will hit, optimization will be done with dp
+     // Time Complexity: O(2^n) | Space Complexity: O(N) auxiliary stack space
+    string betterString(string s1, string s2)
     {
-        long long count1 = countDistinctSubsequences(str1);
-        long long count2 = countDistinctSubsequences(str2);
+        unordered_set<string> set1, set2;
 
-        // If count1 >= count2, return str1 as per the problem description
-        if (count1 >= count2)
+        // Start recursion from index 0 with an empty current string
+        generateSubsequences(0, s1, "", set1);
+        generateSubsequences(0, s2, "", set2);
+
+        // Compare the sizes of the sets
+        if (set1.size() >= set2.size())
         {
-            return str1;
+            return s1;
         }
-        return str2;
+        else
+        {
+            return s2;
+        }
     }
 };
 
